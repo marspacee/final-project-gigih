@@ -14,7 +14,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Navigate to="play/channels" />} />
       <Route path="play/channels">
         <Route index element={<LandingPage />} />
-        <Route path="test/:videoId" element={<DetailPage />} />
+        <Route path=":videoId" element={<DetailPage />} />
       </Route>
     </Route>
   )
