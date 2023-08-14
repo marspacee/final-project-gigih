@@ -1,7 +1,11 @@
 import axios from "../utils/axiosInstance";
 
-export const fetchAllVideo = async () => {
-  return await axios.get("/video");
+export const fetchAllVideo = async (filterTitle) => {
+  return await axios.get("/video", {
+    params: {
+      filterTitle,
+    },
+  });
 };
 
 export const fetchVideoById = async (id) => {

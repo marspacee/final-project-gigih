@@ -3,6 +3,7 @@ import Page from "../../components/Page";
 import VideoCard from "./components/VideoCard";
 import { useEffect, useState } from "react";
 import { fetchAllVideo, fetchVideo } from "../../api/Video";
+import { useLocation } from "react-router-dom";
 
 const dummyData = [
   {
@@ -51,17 +52,20 @@ const dummyData = [
 ];
 
 const LandingPage = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchFilter = searchParams.get("search");
+
   const [videoList, setVideoList] = useState([]);
 
-  const fetchVideoList = async () => {
-    const { data } = await fetchAllVideo();
+  const fetchVideoList = async (searchFilter) => {
+    const { data } = await fetchAllVideo(searchFilter);
     setVideoList(data);
   };
 
   useEffect(() => {
-    fetchVideoList();
-  }, []);
-  console.log({ videoList });
+    fetchVideoList(searchFilter);
+  }, [searchFilter]);
 
   return (
     <Page>
