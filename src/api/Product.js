@@ -1,5 +1,5 @@
-import api from "../utils/axiosInstance";
+import axios from "../utils/axiosInstance";
 
 export const fetchProductByVideoId = async (id) => {
-  return await api.get(`/product/by-video/${id}`);
+  return await axios.get(`/product/by-video/${id}`);
 };

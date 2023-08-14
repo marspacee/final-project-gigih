@@ -2,18 +2,19 @@ import { Stack, Grid, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const VideoCard = ({ data }) => {
-  const { _id, thumbnail, title, author, url } = data;
+  const { _id, thumbnail, title, author } = data;
   return (
-    <Link to={`/play/channels/${_id}`}>
+    <Link to={`/play/channels/${_id}`} style={{ textDecoration: "none" }}>
       <Box
         display="flex"
         alignItems="end"
         sx={{
-          height: "456px",
           cursor: "pointer",
           borderRadius: "8px",
-          backgroundSize: "cover",
           backgroundImage: `url(${thumbnail})`,
+          backgroundSize: "cover",
+          width: "100%",
+          paddingTop: "140%",
         }}
       >
         <Stack spacing={0.5} padding={1} width="100%">

@@ -34,14 +34,32 @@ const DetailPage = () => {
 
   return (
     <Page>
-      <Grid container height="100%" columnSpacing={3}>
+      <Grid container height="100%" columnSpacing={3} position="relative">
         <Grid item md={1.5}>
           <ProductSection products={productData} />
         </Grid>
-        <Grid item md={7} height="100%" display="flex" alignItems="center">
-          <VideoSection />
+        <Grid
+          item
+          md={7}
+          height="fit-content"
+          display="flex"
+          alignItems="center"
+          position="sticky"
+          top="16px"
+          pt="100px"
+        >
+          <VideoSection url={videoData.url} />
         </Grid>
-        <Grid item md={3.5}>
+        <Grid
+          item
+          md={3.5}
+          height="fit-content"
+          display="flex"
+          alignItems="center"
+          position="sticky"
+          top="16px"
+          pt="100px"
+        >
           <CommentSection />
         </Grid>
       </Grid>

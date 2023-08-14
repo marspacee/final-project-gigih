@@ -8,10 +8,13 @@ const ProductCard = ({ data }) => {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ textDecoration: "none", color: "inherit", cursor: "pointer" }}
+      style={{ textDecoration: "none", color: "inherit" }}
     >
       <Stack
-        sx={{ backgroundColor: "white", borderRadius: "8px" }}
+        sx={{
+          backgroundColor: "#FFFFFFB3",
+          borderRadius: "8px",
+        }}
         maxHeight="300px"
       >
         <Box
