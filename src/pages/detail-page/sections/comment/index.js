@@ -12,6 +12,8 @@ const CommentSection = () => {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
 
+  const isSubmitDisabled = !message || !username;
+
   useEffect(() => {
     socket.emit("joinRoom", videoId);
 
@@ -29,13 +31,17 @@ const CommentSection = () => {
     };
   }, [videoId]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (username && message) {
       const newComment = { username, message, videoId };
       socket.emit("newComment", newComment);
       setMessage("");
-      setUsername("");
+    }
+  };
+
+  const onKeyEnter = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit();
     }
   };
 
@@ -69,23 +75,24 @@ const CommentSection = () => {
           <Input
             sx={{ color: "white", borderBottom: "2px solid #FFFFFFB3" }}
             fullWidth
-            multiline
             value={username}
             placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
+            onKeyDown={onKeyEnter}
           />
           <Input
             sx={{ color: "white", borderBottom: "2px solid #FFFFFFB3" }}
             fullWidth
-            multiline
             value={message}
             placeholder="Message"
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={onKeyEnter}
           />
           <Button
             fullWidth
-            variant="outlined"
+            variant={isSubmitDisabled ? "contained" : "outlined"}
             onClick={handleSubmit}
+            disabled={isSubmitDisabled}
             sx={{
               border: "1px solid #FFFFFFB3",
               backgroundColor: "inherit",
@@ -99,9 +106,13 @@ const CommentSection = () => {
                 backgroundColor: "inherit",
                 color: "white",
               },
+              "&:disabled": {
+                border: "inherit",
+                color: "#FFFFFFB3",
+              },
             }}
           >
-            Submit
+            {isSubmitDisabled ? "Fill the Username and Message" : "Submit"}
           </Button>
         </Stack>
       </Box>

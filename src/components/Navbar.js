@@ -1,6 +1,7 @@
 import { Input, Stack, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -17,18 +18,43 @@ const Navbar = () => {
     }
   };
 
+  // if path is in detail page
+  if (location.pathname.includes("channels/")) {
+    return (
+      <Stack
+        direction="row"
+        alignItems="center"
+        backgroundColor="#28282F"
+        height="50px"
+        position="sticky"
+        zIndex={1}
+        top={0}
+        p={2}
+      >
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{ cursor: "pointer" }}
+          onClick={() => navigate(-1)}
+        >
+          <ArrowBackIcon sx={{ color: "white" }} />
+          <Typography color="white">Back</Typography>
+        </Stack>
+      </Stack>
+    );
+  }
   return (
     <Stack
       backgroundColor="#28282F"
       height="70px"
-      direction="row"
       justifyContent="space-between"
       alignItems="center"
       position="sticky"
+      zIndex={1}
       top={0}
       p={2}
     >
-      <Typography color="#FFFFFFB3">
+      <Typography fontSize="20px" fontWeight={700} color="#FFFFFFB3">
         Tokopedia Clone By: Marsya Putra
       </Typography>
       <Input

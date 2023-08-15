@@ -45,8 +45,8 @@ const DetailPage = () => {
           display="flex"
           alignItems="center"
           position="sticky"
-          top="16px"
-          pt="100px"
+          top="60px"
+          pt="60px"
         >
           <VideoSection url={videoData.url} />
         </Grid>
@@ -57,8 +57,8 @@ const DetailPage = () => {
           display="flex"
           alignItems="center"
           position="sticky"
-          top="16px"
-          pt="100px"
+          top="60px"
+          pt="60px"
         >
           <CommentSection />
         </Grid>

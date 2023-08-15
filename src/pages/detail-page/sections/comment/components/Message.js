@@ -2,7 +2,7 @@ import { Avatar, Stack, Typography } from "@mui/material";
 
 const Message = ({ username, message }) => {
   return (
-    <Stack spacing={1} direction="row">
+    <Stack spacing={1} direction="row" alignItems="center">
       <Avatar>{username.split(" ")[0].split("")[0]}</Avatar>
       <Typography fontSize="12px" color="#FFFFFF">
         <Typography
