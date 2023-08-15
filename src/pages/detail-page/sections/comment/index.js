@@ -1,10 +1,11 @@
-import { Avatar, Box, Button, Input, Stack, Typography } from "@mui/material";
-
-import { styled } from "@mui/material/styles";
-import React, { useEffect, useState } from "react";
-import socket from "../../../../utils/socket";
+import { Box, Button, Input, Stack, Typography } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Message from "./components/Message";
+import {
+  fetchCommentsByVideoId,
+  postCommentByVideoId,
+} from "../../../../api/Comment";
 
 const CommentSection = () => {
   const { videoId } = useParams();
@@ -14,28 +15,46 @@ const CommentSection = () => {
 
   const isSubmitDisabled = !message || !username;
 
-  useEffect(() => {
-    socket.emit("joinRoom", videoId);
-
-    socket.on("initialComments", (initialComments) => {
-      setComments(initialComments);
-    });
-
-    socket.on("newComment", (comment) => {
-      setComments((prevComments) => [...prevComments, comment]);
-    });
-
-    return () => {
-      socket.off("initialComments");
-      socket.off("newComment");
-    };
+  const fetchComments = useCallback(async () => {
+    try {
+      const { data } = await fetchCommentsByVideoId(videoId);
+      setComments(data);
+    } catch (error) {
+      console.log(error);
+    }
   }, [videoId]);
 
-  const handleSubmit = () => {
-    if (username && message) {
-      const newComment = { username, message, videoId };
-      socket.emit("newComment", newComment);
-      setMessage("");
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
+
+  // useEffect(() => {
+  //   socket.emit("joinRoom", videoId);
+
+  //   socket.on("initialComments", (initialComments) => {
+  //     setComments(initialComments);
+  //   });
+
+  //   socket.on("newComment", (comment) => {
+  //     setComments((prevComments) => [...prevComments, comment]);
+  //   });
+
+  //   return () => {
+  //     socket.off("initialComments");
+  //     socket.off("newComment");
+  //   };
+  // }, [videoId]);
+
+  const handleSubmit = async () => {
+    try {
+      if (username && message) {
+        const newComment = { username, message, videoId };
+        await postCommentByVideoId(newComment);
+        fetchComments();
+        setMessage("");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
