@@ -20,7 +20,9 @@ const VideoSection = ({ url }) => {
         width="100%"
         style={{ display: iframeLoaded ? "block" : "none" }}
         onLoad={handleIframeLoad}
-      />
+      >
+        <div></div>
+      </iframe>
     </Box>
   );
 };
